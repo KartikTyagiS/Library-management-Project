@@ -1,0 +1,51 @@
+drop database library;
+
+create database library;
+
+use library;
+
+create table Book_information
+(Accession_Number varchar(5),Title varchar(50) NOT NULL,
+Author varchar(20) NOT NULL,Genre varchar(15) NOT NULL, 
+Price integer(4)DEFAULT '0', Stock_available integer(2) DEFAULT '0',
+PRIMARY KEY(Accession_Number) );
+
+create table User_Id
+(Name varchar(30), Phone_No varchar(15), UserID varchar(50) NOT NULL,
+Password varchar(20),Question varchar(100),Answer varchar(100),
+Primary Key(Password));
+
+create table Registered_Issuers
+(LibraryCard_Number varchar(10) NOT NULL, Name_of_issuer varchar(20) NOT NULL,
+Phone_numbers varchar(20), Address varchar(50),
+Date_Registration date,
+PRIMARY KEY(LibraryCard_Number) );
+
+create table Transaction_Records
+(Record_Number int(5) Auto_increment, LibraryCard_Number varchar(10),
+Accession_Number varchar(5),Date_of_issue date, Date_of_return date,
+Duration_of_issue varchar(10), Fine_Charged varchar(7),
+Foreign Key(LibraryCard_Number) references Registered_Issuers (LibraryCard_Number) on update cascade on delete restrict,
+Foreign Key(Accession_Number) references Book_Information (Accession_Number) on update cascade on delete restrict,
+Primary Key(Record_Number)  );
+
+create table disposed
+( Accession_number varchar(5),LibraryCard_number varchar(7));
+
+insert into Book_information values('B01', 'Fundamentals of Physics', 'Resnick & Halliday', 'Physics',250,1);
+insert into Book_information values('B02', 'Concepts of Physics Volume 1', 'H.C. Verma','Physics', 250,1);
+insert into Book_information values('B03', 'Concepts of Physics Volume 2', 'H.C. Verma','Physics', 230,1);
+insert into Book_information values('B04', 'Physics MCQ', 'D Mukherji','Physics', 290,1);
+insert into Book_information values('B05', 'Problems In Physics', 'M.K. Agarwal', 'Physics', 280,1);
+insert into Book_information values('B06', 'Understanding Physics Mechanics', 'D.C. Pandey', 'Physics',170,1);
+insert into Book_information values('B07', 'Understanding Physics Optics Part 1', 'D.C. Pandey', 'Physics', 190,1);
+insert into Book_information values('B08', 'Understanding Physics Optics Part 2', 'D.C. Pandey', 'Physics', 200,1);
+insert into Book_information values('B09', 'Numerical Bank', 'G. Jaggi & K. Sharma', 'Physics', 280,1);
+insert into Book_information values('B10','Fundamentals of Physics', 'Yavorsky & Pinsky', 'Physics', 240,1);
+insert into Book_information values('B11', 'Claculus in One Variable', 'Thomas & Finney',  'Maths', 300,1);
+insert into Book_information values('B12','Mathematics Class XII Vol 1','R.D. Sharma','Maths',220,1);
+insert into Book_information values('B13','Mathematics Class XII Vol 2','R.D. Sharma','Maths',260,1);
+insert into Book_Information values('B14','Higher Algebra','Hall & Knight','Maths',190,1);
+insert into Book_Information values('B15','Mathematics','Mohit Khanna','Maths',235,1); 
+
+insert into registered_issuers values('L01','Kartik Tyagi','9971480190','SH-140 Shastri Nagar Ghaziabad', curdate());
